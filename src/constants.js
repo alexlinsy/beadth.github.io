@@ -55,6 +55,17 @@ export const CHART_COPYRIGHT = {
     fontSize: 16,
   },
 }
+export const FED_SOMA_KEY_MAP = {
+  mbs: "Agency Mortgage-Backed Securities",
+  cmbs: "Agency Commercial Mortgage-Backed Securities",
+  tips: "US Treasury Inflation-Protected Securities (TIPS)",
+  frn: "US Treasury Floating Rate Notes",
+  notesbonds: "US Treasury Notes and Bonds (Notes/Bonds)",
+  bills: "US Treasury Bills (T-Bills)",
+  agencies: "Federal Agency Securities",
+  tipsInflationCompensation: "Inflation Compensation",
+  total: "Total SOMA Holdings",
+};
 export const US_ALL_ETF = [
   'VTI',
   'DIA',

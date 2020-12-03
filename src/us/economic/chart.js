@@ -9,7 +9,7 @@ import {
   Legend,
   Interaction,
 } from 'bizcharts';
-import {CHART_COPYRIGHT} from "../../constants";
+import {CHART_COPYRIGHT, FED_SOMA_KEY_MAP} from "../../constants";
 
 // agencies: "10000000"
 // asOfDate: "2003-11-19"
@@ -22,8 +22,6 @@ import {CHART_COPYRIGHT} from "../../constants";
 // tipsInflationCompensation: "1621412000"
 // total: "661091816000.00"
 
-// TODO https://github.com/beadth/beadth.github.io/issues/5
-// 复现方式： 同目录 index.js -> line: 20 -> 删除 disabled
 export const MarketSomaHoldChart = (props) => {
 
   props.somaHolDataList.transform({
@@ -32,14 +30,27 @@ export const MarketSomaHoldChart = (props) => {
     key: 'type', // key字段
     value: 'value', // value字段
   })
+  props.somaHolDataList.transform({
+    type: "pick",
+    fields: ["asOfDate", "type", "value"],
+  })
+  props.somaHolDataList.transform({
+    type: "map",
+    callback(row) {
+      row.type = FED_SOMA_KEY_MAP[row.type] || row.type
+      row.value = isNaN(row.value)
+        ? 0
+        : (parseFloat(row.value) / 10 ** 9).toFixed(4);
+      return row;
+    },
+  })
   const scale = {
     value: {
+      type: "linear",
       min:0,
-      // max:6595332515097.74
-      // max:70000000000000
     },
     asOfDate:{
-      type: 'time',
+      type: 'timeCat',
       alias:'日期'
     }
   }

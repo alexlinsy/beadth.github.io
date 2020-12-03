@@ -7,7 +7,6 @@ import * as constants from './constants';
 
 export const ALLETFormat = (srcData) => {
   var data = JSON.parse(Base64.decode(srcData.data))
-  console.log(data)
   const ds = new DataSet();
   const dv = ds.createView("src").source(data);
   return {

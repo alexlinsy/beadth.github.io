@@ -23,7 +23,7 @@ class Economic extends Component{
         <Row justify="center" align="top">
           <Col xs={{span: 24}} sm={{span: 24}} md={{span: 20}} lg={{span: 16}} xl={{span: 16}} align="top">
             <Collapse defaultActiveKey={['eco2', 'eco3',]} >
-              <Panel header="美联储披露持仓" key="eco1" disabled>
+              <Panel header="美联储披露持仓 (十亿)" key="eco1">
                 {
                   this.props.somaHolDataStatus
                     ? <Loading/>
