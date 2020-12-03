@@ -13,6 +13,7 @@ from bin import treasury
 from bin import breadth
 from bin import federal_founds_rate
 from bin import us_etf
+from bin import jobless_claims
 
 logger = logging.getLogger(__name__)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -67,6 +68,7 @@ def run():
             cpi.bin()
             treasury.bin()
             federal_founds_rate.bin()
+            jobless_claims.bin()
 
             # etf
             us_etf.bin()

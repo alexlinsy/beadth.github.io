@@ -27,6 +27,8 @@ GOLD_SINCE_SRC_DATA = os.path.join(DATA_US_DIR, 'gold_since.json')
 CPI_SRC_DATA = os.path.join(DATA_US_DIR, 'cpi.json')
 TREASURY_REAL_RATES_SRC_DATA = os.path.join(DATA_US_DIR, 'treasury_real_rates.json')
 FEDERAL_FUNDS_RATE_SRC_DATA = os.path.join(DATA_US_DIR, 'federal_founds_rate.json')
+US_INITIAL_JOBLESS_SRC_DATA = os.path.join(DATA_US_DIR, 'initial_jobless.json')
+US_CONTINUING_JOBLESS_SRC_DATA = os.path.join(DATA_US_DIR, 'continuing_jobless.json')
 
 NEWYORKFED_SOMA_HOLD_URL = "https://markets.newyorkfed.org/read?productCode=30&startDt={}&endDt={}&query=summary&format=json"
 NEWYORKFED_WEI_URL = "https://www.newyorkfed.org/medialibrary/research/interactives/data//wei_data.csv"
@@ -45,6 +47,8 @@ CPI_URL = "https://ycharts.com/charts/fund_data.json?annotations=&annualizedRetu
           "10&redesign=true&maxPoints=891"
 TREASURY_REAL_RATES_URL = "https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=realyieldYear&year={}"
 FEDERAL_FUNDS_RATE_URL = "https://ycharts.com/charts/fund_data.json?annotations=&annualizedReturns=false&calcs=&chartType=interactive&chartView=&correlations=&dateSelection=range&displayDateRange=false&displayTicker=false&endDate=&format=real&legendOnChart=false&note=&partner=basic_2000&quoteLegend=false&recessions=false&scaleType=linear&securities=id%3AI%3AEFFRND%2Cinclude%3Atrue%2C%2C&securityGroup=&securitylistName=&securitylistSecurityId=&source=false&splitType=single&startDate=&title=&units=false&useCustomColors=false&useEstimates=false&zoom=5&redesign=true&maxPoints=787"
+US_INITIAL_JOBLESS_URL = "https://sbcharts.investing.com/events_charts/us/294.json"
+US_CONTINUING_JOBLESS_URL = "https://sbcharts.investing.com/events_charts/us/522.json"
 
 NEWYORKFED_HOLD_OUTPUT_NAME = 'newyorkfed_makert_hold.json'
 NEWYORKFED_WEI_NAME = 'newyorkfed_wei.json'
@@ -55,7 +59,9 @@ COPPER_GOLD_RATIO_NAME = os.path.join(OUTPUT, 'copper_gold_ratio.json')
 INTEREST_RATES_NAME = os.path.join(OUTPUT, 'interest_rates.json')
 COPPER_NAME = os.path.join(OUTPUT, 'copper.json')
 GOLD_SINCE_NAME = os.path.join(OUTPUT, 'gold_since.json')
-CPI_NAME = os.path.join(OUTPUT, 'cpi.json')
+INITIAL_JOBLESS_OUTPUT = os.path.join(OUTPUT, 'initial_jobless.json')
+CONTINUING_JOBLESS_OUTPUT = os.path.join(OUTPUT, 'continuing_jobless.json')
+US_JOBLESS_OUTPUT = os.path.join(OUTPUT, 'us_jobless.json')
 TREASURY_REAL_RATES_NAME = 'treasury_real_rates_{}.json'
 FEDERAL_FUNDS_RATE_NAME = 'federal_founds_rate_{}.json'
 
