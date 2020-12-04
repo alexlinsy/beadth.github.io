@@ -58,8 +58,7 @@ export const MarketSomaHoldChart = (props) => {
   return (
     <React.Fragment>
       <Chart padding="auto" scale={scale} height={500} data={props.somaHolDataList.rows} autoFit>
-        <Tooltip shared />
-        {/*<Area position="asOfDate*value" color="type" />*/}
+        <Tooltip shared showCrosshairs/>
         <Line shape="line" position="asOfDate*value" color="type" />
       </Chart>
     </React.Fragment>
