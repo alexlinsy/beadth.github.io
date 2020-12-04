@@ -60,6 +60,7 @@ def run():
     for k,v in ret.items():
         if k in src_data:
             continue
+        logger.info('CPI New Data: {}'.format(v))
         src_data[k] = v
     utils.write(cf.CPI_SRC_DATA, src_data)
     split_data()

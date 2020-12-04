@@ -62,6 +62,7 @@ GOLD_SINCE_NAME = os.path.join(OUTPUT, 'gold_since.json')
 INITIAL_JOBLESS_OUTPUT = os.path.join(OUTPUT, 'initial_jobless.json')
 CONTINUING_JOBLESS_OUTPUT = os.path.join(OUTPUT, 'continuing_jobless.json')
 US_JOBLESS_OUTPUT = os.path.join(OUTPUT, 'us_jobless.json')
+CPI_FFR_OUTPUT = os.path.join(OUTPUT, 'cpi_ffr.json')
 TREASURY_REAL_RATES_NAME = 'treasury_real_rates_{}.json'
 FEDERAL_FUNDS_RATE_NAME = 'federal_founds_rate_{}.json'
 

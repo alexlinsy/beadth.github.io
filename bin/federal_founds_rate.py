@@ -52,6 +52,43 @@ def split_data(ys=[5,]):
         path = os.path.join(cf.OUTPUT, cf.FEDERAL_FUNDS_RATE_NAME.format(ys[idx]))
         utils.save_ouput(ret, path)
 
+def merge(ys=[5,]):
+    tmp_ret = dict()
+    years = []
+    cpi_data = utils.read(cf.CPI_SRC_DATA)
+    ffr_data = utils.read(cf.FEDERAL_FUNDS_RATE_SRC_DATA)
+    data_dict = dict(
+        cpi=sorted(cpi_data.items(), key=lambda i: datetime.datetime.strptime(i[0], "%Y-%m-%d"), reverse=False),
+        ffr=sorted(ffr_data.items(), key=lambda i: datetime.datetime.strptime(i[0], "%Y-%m-%d"), reverse=False),
+    )
+    for i in ys:
+        r = utils.today() - relativedelta(years=i)
+        years.append(r)
+
+    for y in years:
+        for k,v in data_dict.items():
+
+            for i in v:
+                tk, tv = i[0], i[1]
+                # split year
+                _t = datetime.datetime.strptime(tk, "%Y-%m-%d")
+                _t = date(year=_t.year, month=_t.month, day=_t.day)
+                if y > _t:
+                    continue
+                # in year
+                item = {
+                    'day': tv['day'],
+                    k: tv['value']
+                }
+                if tmp_ret.get(tk, None):
+                    tmp_ret[tk].update(item)
+                else:
+                    tmp_ret[tk] = item
+
+    ret = []
+    for item in sorted(tmp_ret.items(), key=lambda i: datetime.datetime.strptime(i[0], "%Y-%m-%d"), reverse=False):
+        ret.append(item[1])
+    utils.save_ouput(ret, cf.CPI_FFR_OUTPUT)
 
 def run():
     rep = utils.get(cf.FEDERAL_FUNDS_RATE_URL)
@@ -61,9 +98,11 @@ def run():
     for k,v in ret.items():
         if k in src_data:
             continue
+        logger.info('Federal Founds Rate New Data: {}'.format(v))
         src_data[k] = v
     utils.write(cf.FEDERAL_FUNDS_RATE_SRC_DATA, src_data)
     split_data()
+    merge()
     logger.info('run end.')
 
 def bin():
@@ -76,7 +115,8 @@ def bin():
     logger.info('NOT Federal Funds Rate TIME.')
 
 if __name__ == '__main__':
-    run()
+    # run()
+    merge()
     # rep = utils.get(cf.FEDERAL_FUNDS_RATE_URL)
     # print(rep.text)
     # print(rep.json()['observations'][0])
