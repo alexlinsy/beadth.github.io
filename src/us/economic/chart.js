@@ -95,6 +95,7 @@ export const WeiChart = (props) => {
       <Chart padding={[10, 20, 70, 40]} scale={scale} autoFit height={500} data={props.weiDatalist.rows}>
         <Line shape="line" position="time*value" color="type" />
         <Tooltip shared showCrosshairs />
+        <Slider start={0.8}/>
         <Annotation.DataMarker
           position={[current.time, current.value]}
           text={{
