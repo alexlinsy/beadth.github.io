@@ -10,6 +10,10 @@ const defaultState = fromJS({
   OliCopperGoldRatioData: [],
   treasuryRealRatesStatus: true,
   treasuryRealRatesData: [],
+  joblessClaimStatus: true,
+  joblessClaimsData: [],
+  cpiFederalStatus: true,
+  cpiFederalData: [],
 });
 
 const updateSomeHold = (state, action) => {
@@ -41,6 +45,20 @@ const updateTreasuryRealRates = (state, action) => {
   })
 }
 
+const updateJoblessClaims = (state, action) => {
+  return state.merge({
+    joblessClaimStatus: action.joblessClaimStatus,
+    joblessClaimsData: action.joblessClaimsData,
+  })
+}
+
+
+const updateCPIFederalRate = (state, action) => {
+  return state.merge({
+    cpiFederalStatus: action.cpiFederalStatus,
+    cpiFederalData: action.cpiFederalData,
+  })
+}
 
 // state    整个DOM的数据库
 // action
@@ -55,6 +73,10 @@ const reducer = (state = defaultState, action) => {
       return updateOliCopperGoldRatio(state, action)
     case constants.GET_TREASURY_REAL_RATES:
       return updateTreasuryRealRates(state, action)
+    case constants.GET_JOBLESS_CLAIMS:
+      return updateJoblessClaims(state, action)
+    case constants.GET_CPI_FEDERAL_FOUNDS_RATE:
+      return updateCPIFederalRate(state, action)
     default:
       return state;
   }

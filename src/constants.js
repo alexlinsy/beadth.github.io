@@ -166,3 +166,5 @@ export const US_ETF_ALL_LIST = [
   US_ETF_COM, US_ETF_CON_CNS, US_ETF_ENE, US_ETF_FIN, US_ETF_HLT,US_ETF_IND, US_ETF_MAT,
   US_ETF_REL, US_ETF_TEC, US_ETF_UTL
 ]
+export const TREASURY_REAL_RATES_FIELD = ['5 YR', '7 YR', '10 YR', '20 YR', '30 YR']
+export const SOMA_HOLD_FIELD = ['agencies', 'bills', 'cmbs', 'frn', 'mbs', 'notesbonds', 'tips', 'tipsInflationCompensation', 'total']

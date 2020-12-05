@@ -49,12 +49,31 @@ export const OliCopperGoldRatioFormat = (srcData) => {
 
 export const TreasuryRealRatesFormat = (srcData) => {
   var data = JSON.parse(Base64.decode(srcData.data));
-  console.log(data)
   const dv = new DataSet.DataView().source(data);
   return {
     type: constants.GET_TREASURY_REAL_RATES,
     treasuryRealRatesStatus: false,
     treasuryRealRatesData: dv,
+  }
+}
+
+export const JoblessClaimsFormat = (srcData) => {
+  var data = JSON.parse(Base64.decode(srcData.data));
+  const dv = new DataSet.DataView().source(data);
+  return {
+    type: constants.GET_JOBLESS_CLAIMS,
+    joblessClaimStatus: false,
+    joblessClaimsData: dv,
+  }
+}
+
+export const CPIFFRFormat = (srcData) => {
+  var data = JSON.parse(Base64.decode(srcData.data));
+  const dv = new DataSet.DataView().source(data);
+  return {
+    type: constants.GET_CPI_FEDERAL_FOUNDS_RATE,
+    cpiFederalStatus: false,
+    cpiFederalData: dv,
   }
 }
 
@@ -67,7 +86,6 @@ export const geNewyorktWei = () => {
     })
   }
 }
-
 
 export const getMarketSomaHold = () => {
   return (dispatch) => {
@@ -93,6 +111,26 @@ export const getTreasuryRealRates = () => {
   return (dispatch) => {
     axios.get("us/treasury_real_rates_5.json").then((res) => {
       dispatch(TreasuryRealRatesFormat(res.data))
+    }).catch(() => { // ajax request error
+      console.log("error")
+    })
+  }
+}
+
+export const getJoblessClaims = () => {
+  return (dispatch) => {
+    axios.get("us/us_jobless.json").then((res) => {
+      dispatch(JoblessClaimsFormat(res.data))
+    }).catch(() => { // ajax request error
+      console.log("error")
+    })
+  }
+}
+
+export const getCPIFederalFoundsRate = () => {
+  return (dispatch) => {
+    axios.get("us/cpi_ffr.json").then((res) => {
+      dispatch(CPIFFRFormat(res.data))
     }).catch(() => { // ajax request error
       console.log("error")
     })

@@ -151,6 +151,9 @@ const BreadthLineChart = (props) => {
       mix: 0,
       max: 1100,
       alias: '市场宽度'
+    },
+    day:{
+      type: 'timeCat',
     }
   }
 

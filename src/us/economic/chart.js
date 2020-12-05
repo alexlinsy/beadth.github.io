@@ -8,25 +8,17 @@ import {
   LineAdvance,
   Legend,
   Interaction,
+  Geom,
+  Slider,
 } from 'bizcharts';
-import {CHART_COPYRIGHT, FED_SOMA_KEY_MAP} from "../../constants";
+import {CHART_COPYRIGHT, FED_SOMA_KEY_MAP, SOMA_HOLD_FIELD, TREASURY_REAL_RATES_FIELD} from "../../constants";
 
-// agencies: "10000000"
-// asOfDate: "2003-11-19"
-// bills: "242958086000"
-// cmbs: "0.00"
-// frn: ""
-// mbs: "0.00"
-// notesbonds: "404669247000"
-// tips: "13454483000"
-// tipsInflationCompensation: "1621412000"
-// total: "661091816000.00"
 
 export const MarketSomaHoldChart = (props) => {
 
   props.somaHolDataList.transform({
     type: 'fold',
-    fields: ['agencies', 'bills', 'cmbs', 'frn', 'mbs', 'notesbonds', 'tips', 'tipsInflationCompensation', 'total'], // 展开字段集
+    fields: SOMA_HOLD_FIELD, // 展开字段集
     key: 'type', // key字段
     value: 'value', // value字段
   })
@@ -65,7 +57,6 @@ export const MarketSomaHoldChart = (props) => {
 
   );
 }
-
 
 export const WeiChart = (props) => {
   const minVal = props.weiDatalist.min("value")
@@ -220,6 +211,7 @@ export const OliCopperGoldRatio = (props) => {
         <Line position="t*copper_gold_ratio" color={"#FF8C00"}/>
         <Line position="t*interest_rates" color={"#000000"}/>
         <Line position="t*oil_gold_ratio" color={"#7CFC00"}/>
+        <Legend/>
       </Chart>
     </React.Fragment>
   );
@@ -228,13 +220,14 @@ export const OliCopperGoldRatio = (props) => {
 export const TreasuryRealRates = (props) => {
   props.treasuryRealRatesData.transform({
     type: 'fold',
-    fields: ['5 YR', '7 YR', '10 YR', '20 YR', '30 YR'], // 展开字段集
+    fields: TREASURY_REAL_RATES_FIELD, // 展开字段集
     key: 'year', // key字段
     value: 'value', // value字段
   })
+
   return (
     <React.Fragment>
-      <Chart padding="auto" height={400} data={props.treasuryRealRatesData.rows}  autoFit>
+      <Chart padding="auto" height={300} data={props.treasuryRealRatesData.rows}  autoFit>
         <Tooltip shared showCrosshairs />
         {/*<Line shape="smooth" position="Date*value" color="year" />*/}
         <LineAdvance
@@ -246,13 +239,102 @@ export const TreasuryRealRates = (props) => {
           name='year'
           filter={year => {
             return year === '5 YR' | year === '10 YR'
-          }}
-          itemName={{
-            style: {
-              fill: "#333"
-            }
-          }} />
+          }}/>
         <Interaction type='legend-filter' />
+      </Chart>
+    </React.Fragment>
+  );
+}
+
+export const JoblessClaims = (props) => {
+  props.joblessClaimsData.transform({
+    type: 'impute',
+    field: 'continuing_actual',       // 待补全字段
+    groupBy: [ 'initial_revised' ], // 分组字段集（传空则不分组）
+    method: 'value',     // 补全字段值时执行的规则
+    value: NaN,
+  })
+
+  const scale = {
+    initial_revised: {
+      // min: 100,
+      // max: 8000,
+      alias: "初次申请失业金人数（K）",
+      tickCount: 3,
+    },
+    continuing_actual: {
+      // min: 800,
+      // max: 27000,
+      alias: "持续申请失业金人数（K）",
+      tickCount: 3,
+    }
+  }
+  return (
+    <React.Fragment>
+      <Chart padding="auto" scale={scale} height={500} data={props.joblessClaimsData.rows}  autoFit>
+        <Tooltip shared showCrosshairs />
+        <Axis name="initial_revised" title />
+        <Axis name="continuing_actual" title />
+        <Line position="time*initial_revised" color={"#000000"}/>
+        <Line position="time*continuing_actual" color={"#CC0066"}/>
+        <Slider
+          start={0.9}
+          formatter={(v, d, i) => {
+            return ``;
+          }}
+        />
+      </Chart>
+    </React.Fragment>
+  );
+}
+
+
+// TODO 遇到显示问题 缺失的日期不连线
+export const CPIFederalFundsRate = (props) => {
+  props.cpiFederalData.transform({
+    type: 'impute',
+    field: 'cpi',       // 待补全字段
+    groupBy: [ 'ffr' ], // 分组字段集（传空则不分组）
+    method: 'value',     // 补全字段值时执行的规则
+    value: NaN
+  })
+
+  props.cpiFederalData.transform({
+    type: 'impute',
+    field: 'ffr',       // 待补全字段
+    groupBy: [ 'cpi' ], // 分组字段集（传空则不分组）
+    method: 'value',     // 补全字段值时执行的规则
+    value: NaN
+  })
+
+  props.cpiFederalData.transform({
+    type: 'fold',
+    fields: ['cpi', 'ffr'], // 展开字段集
+    key: 'type', // key字段
+    value: 'value', // value字段
+  })
+  const scale = {
+    value: {
+      type: "linear",
+    }
+  }
+  return (
+    <React.Fragment>
+      <Chart padding="auto" scale={scale} height={400} data={props.cpiFederalData.rows}  autoFit>
+
+        <LineAdvance
+          shape="smooth"
+          position="day*value"
+          color="type"
+        />
+        <Geom
+          type="line"
+          position="day*value"
+          size={1}
+          color={"type"}
+          shape={"hv"}
+        />
+        <Legend />
       </Chart>
     </React.Fragment>
   );

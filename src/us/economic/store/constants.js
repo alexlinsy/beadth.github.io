@@ -3,3 +3,5 @@ export const GET_NEWYORKFED_WEI = 'us/economic/GET_NEWYORKFED_WEI';
 export const GET_OLI_COPPER_GOLD_RATIO = 'us/economic/GET_OLI_COPPER_GOLD_RATIO';
 export const GET_INTEREST_RATES = 'us/economic/GET_INTEREST_RATES';
 export const GET_TREASURY_REAL_RATES = 'us/economic/GET_TREASURY_REAL_RATES';
+export const GET_JOBLESS_CLAIMS = 'us/economic/GET_JOBLESS_CLAIMS';
+export const GET_CPI_FEDERAL_FOUNDS_RATE = 'us/economic/GET_CPI_FEDERAL_FOUNDS_RATE';
